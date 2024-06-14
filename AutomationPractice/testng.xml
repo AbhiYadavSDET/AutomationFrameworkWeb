@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="methods" thread-count="2">
+    <listeners>
+        <listener class-name="utilities.Listeners"></listener>
+    </listeners>
+    <test name="Broken Links and Images Tests">
+        <classes>
+            <class name="testcases.DragAndDrop"></class>
+        </classes>
+    </test>
+</suite>
