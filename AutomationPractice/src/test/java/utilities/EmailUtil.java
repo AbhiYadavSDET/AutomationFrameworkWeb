@@ -11,8 +11,8 @@ public class EmailUtil {
 
     public static void sendEmailWithAttachment(String to, String subject, String body, String attachmentPath) {
         // Sender's email ID and password
-        final String from = "abhi726yadav@gmail.com"; // change accordingly
-        final String password = "Abhiayadav@121995098765431"; // change accordingly
+        final String from = "abhi7268yadav@gmail.com"; // change accordingly
+        final String password = "Abhiayadav@12098765431"; // change accordingly
 
         // Setup mail server
         Properties props = new Properties();
