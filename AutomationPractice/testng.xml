@@ -5,7 +5,8 @@
     </listeners>
     <test name="Broken Links and Images Tests">
         <classes>
-            <class name="testcases.DragAndDrop"></class>
+            <class name="testcases.BrokenLinks"></class>
         </classes>
     </test>
 </suite>
+

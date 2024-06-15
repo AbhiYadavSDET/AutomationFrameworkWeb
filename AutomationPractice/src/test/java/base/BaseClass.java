@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import utilities.EmailUtil;
 
 public class BaseClass {
 
@@ -40,9 +41,17 @@ public class BaseClass {
     @AfterSuite
     public void tearDownSuite() {
         flushExtentReport();
+
+  /*      // Send email with Extent Report
+        String to = "abhi726yadav@gmail.com";
+        String subject = "Extent Report";
+        String body = "Dear Abhi,\n\nPlease find the attached Extent Report.\n\nBest regards,\nYour Automation Framework";
+        String attachmentPath = "extent.html";
+
+        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath);*/
     }
 
-    protected WebDriver getDriver() {
+    public static WebDriver getDriver() {
         return driver.get();
     }
 

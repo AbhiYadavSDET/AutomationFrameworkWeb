@@ -1,7 +1,8 @@
 package utilities;
 
-import freemarker.cache.WebappTemplateLoader;
+import com.aventstack.extentreports.ExtentTest;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,80 +11,72 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
-
+import java.util.Base64;
+import java.util.Date;
 
 public class CommonMethods {
 
-    private WebDriver driver;
-
-    public CommonMethods(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void takeScreenshot(String fileName,WebDriver driver) {
-        // Take screenshot and save it as a file
-        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    public static void navigateToUrl(String url, ExtentTest test, WebDriver driver) {
         try {
-            FileUtils.copyFile(screenshot, new File("./screenshots/" + fileName + ".png"));
-            System.out.println("Screenshot saved at: ./screenshots/" + fileName + ".png");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            driver.get(url);
+            test.info("Navigated to " + url);
+            System.out.println("Navigated to " + url);
+        } catch (Exception e) {
+            test.fail("Failed to navigate to " + url + ". Exception: " + e.getMessage());
+            System.out.println("Failed to navigate to " + url + ". Exception: " + e.getMessage());
         }
     }
 
-
-    public void scrollDown() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-    }
-
-    public void scrollUp() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, -document.body.scrollHeight)");
-    }
-
-    public void clickElement(WebElement element) {
+    public static void clickElement(WebElement element, ExtentTest test) {
         try {
             element.click();
+            test.info("Clicked on element: " + element.toString());
         } catch (Exception e) {
-            // Handle any exceptions here
+            test.fail("Failed to click on element: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public void sendKeysToElement(WebElement element, String keys) {
+    public static void sendKeysToElement(WebElement element, String keys, ExtentTest test) {
         try {
             element.sendKeys(keys);
+            test.info("Sent keys to element: " + element.toString());
         } catch (Exception e) {
-            // Handle any exceptions here
+            test.fail("Failed to send keys to element: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public void hoverOverElement(WebElement element) {
+    public static void hoverOverElement(WebElement element, WebDriver driver) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
     }
 
-   public WebElement fluentWait(By locator, int duration, int pollingWait){
-
-        Wait<WebDriver> fluentWait =  new FluentWait<>(driver)
-               .withTimeout(Duration.ofSeconds(duration))
-               .pollingEvery(Duration.ofSeconds(pollingWait))
-               .ignoring(NoSuchElementException.class);
-
+    public static WebElement fluentWait(By locator, int duration, int pollingWait, WebDriver driver) {
+        Wait<WebDriver> fluentWait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(duration))
+                .pollingEvery(Duration.ofSeconds(pollingWait))
+                .ignoring(NoSuchElementException.class);
         return fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
-   }
+    public static WebElement explicitWait(By locator, int duration, WebDriver driver) {
+        WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(duration));
+        return explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
-   public WebElement explicitWait(By locator, int duration){
+    public static String getScreenshotAsBase64(WebDriver driver) throws IOException {
+        File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String fileName = "screenshot_" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".png";
 
-        WebDriverWait explicitWait = new WebDriverWait(driver,Duration.ofSeconds(duration));
+        String path = System.getProperty("user.dir")+"/screenshots/"+fileName;
+        FileUtils.copyFile(src,new File(path));
 
-
-       return explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-
-   }
+        byte [] imageBytes = IOUtils.toByteArray((new FileInputStream(path)));
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
 }
