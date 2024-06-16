@@ -31,12 +31,12 @@ public class CommonMethods {
         }
     }
 
-    public static void clickElement(WebElement element, ExtentTest test) {
+    public static void clickElement(WebElement element, String elementName, ExtentTest test) {
         try {
             element.click();
-            test.info("Clicked on element: " + element.toString());
+            test.info("Clicked on element: " + elementName);
         } catch (Exception e) {
-            test.fail("Failed to click on element: " + e.getMessage());
+            test.fail("Failed to click on element '" + elementName + "': " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -44,7 +44,7 @@ public class CommonMethods {
     public static void sendKeysToElement(WebElement element, String keys, ExtentTest test) {
         try {
             element.sendKeys(keys);
-            test.info("Sent keys to element: " + element.toString());
+            test.info( "Enetered data : "+keys);
         } catch (Exception e) {
             test.fail("Failed to send keys to element: " + e.getMessage());
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class CommonMethods {
 
     public static String getScreenshotAsBase64(WebDriver driver) throws IOException {
         File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String fileName = "screenshot_" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".png";
+        String fileName = "screenshot_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date()) + ".png";
 
         String path = System.getProperty("user.dir")+"/screenshots/"+fileName;
         FileUtils.copyFile(src,new File(path));

@@ -5,6 +5,7 @@ import java.util.Date;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.reporter.configuration.ViewName;
 
 public class ExtentReporterNG {
 
@@ -33,15 +34,30 @@ public class ExtentReporterNG {
             ExtentSparkReporter reporter = new ExtentSparkReporter(reportFilePath);
             reporter.config().setReportName("Web Automation Testing Report");
             reporter.config().setDocumentTitle("Test Cases Result");
-            reporter.config().setTheme(Theme.DARK);
+            reporter.config().setTheme(Theme.STANDARD);
             reporter.config().setTimeStampFormat("EEEE, MMMM dd, yyyy, hh:mm a '('zzz')'");
 
+            // Additional configurations
+            reporter.config().setTimelineEnabled(true); // Enable timeline view
+            reporter.config().setOfflineMode(true); // Enable offline mode for viewing the report without internet
+            reporter.config().setEncoding("UTF-8");
 
+            // Ensure dashboard opens first
+            reporter.viewConfigurer().viewOrder().as(
+                    new ViewName[] {
+                            ViewName.DASHBOARD,
+                            ViewName.TEST,
+                            ViewName.CATEGORY,
+                            ViewName.AUTHOR,
+                            ViewName.DEVICE,
+                            ViewName.EXCEPTION,
+                            ViewName.LOG
+                    }).apply();
 
             // Initialize ExtentReports and attach the reporter
             extent = new ExtentReports();
+
             extent.attachReporter(reporter);
-       /*     extent.setSystemInfo("Tester", "Abhishek Yadav");*/
             extent.setSystemInfo("Operating System", System.getProperty("os.name"));
             extent.setSystemInfo("Java Version", System.getProperty("java.version"));
             extent.setSystemInfo("User Name", System.getProperty("user.name"));

@@ -11,6 +11,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import utilities.EmailUtil;
 
+import java.util.concurrent.TimeUnit;
+
 public class BaseClass {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -24,9 +26,11 @@ public class BaseClass {
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        driver.set(new ChromeDriver());
+        WebDriver chromeDriver = new ChromeDriver();
+        chromeDriver.manage().window().maximize();
+        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Set implicit wait here
+        driver.set(chromeDriver);
         System.out.println("Initialized WebDriver for thread: " + Thread.currentThread().getId());
-        getDriver().manage().window().maximize();
     }
 
     @AfterMethod
