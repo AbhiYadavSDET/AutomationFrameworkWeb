@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="classes" thread-count="1">
+    <listeners>
+        <listener class-name="utilities.Listeners"></listener>
+    </listeners>
+    <test name="Broken Links and Images Tests">
+        <classes>
+            <class name="testcases.LoginPageTest"></class>
+        </classes>
+    </test>
+</suite>
+
