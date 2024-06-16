@@ -28,7 +28,7 @@ public class LoginPageHelper {
         loginPage.enterOtp(otp);
         loginPage.submitOtp();
 
-        if(loginPage.isbackButtonDisplayed()){
+        if(loginPage.isBackButtonDisplayed()){
             loginPage.clickonBackButton();
         }
 
