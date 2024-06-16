@@ -27,6 +27,4 @@ public class LoginPageTest extends BaseClass {
         loginHelper.login("1234567890", "123456");
         loginHelper.logout();
     }
-
-
 }
