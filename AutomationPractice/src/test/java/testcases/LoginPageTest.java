@@ -16,7 +16,6 @@ public class LoginPageTest extends BaseClass {
 
         LoginPageHelper loginHelper = new LoginPageHelper(driver,test);
         loginHelper.login("1234567890", "123456");
-
     }
 
     @Test
@@ -26,9 +25,7 @@ public class LoginPageTest extends BaseClass {
 
         LoginPageHelper loginHelper = new LoginPageHelper(driver,test);
         loginHelper.login("1234567890", "123456");
-
         loginHelper.logout();
-
     }
 
 
