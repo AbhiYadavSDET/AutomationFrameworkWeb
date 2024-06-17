@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,5 +79,13 @@ public class CommonMethods {
 
         byte [] imageBytes = IOUtils.toByteArray((new FileInputStream(path)));
         return Base64.getEncoder().encodeToString(imageBytes);
+    }
+
+
+    public void dragAndDrop(WebDriver driver,WebElement source,WebElement destination) throws InterruptedException {
+
+        Actions action = new Actions(driver);
+        // Perform the drag and drop action
+        action.dragAndDrop(source, destination).build().perform();
     }
 }
