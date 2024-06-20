@@ -11,7 +11,7 @@ public class LoginPageHelper {
     private LoginPage loginPage;
     private ExtentTest test;
 
-    private static final String URL = "https://www.mobikwik.com/";
+
     SoftAssert softAssert = new SoftAssert();
 
     public LoginPageHelper(WebDriver driver, ExtentTest test) {
@@ -20,8 +20,8 @@ public class LoginPageHelper {
         this.test = test;
     }
 
-    public void login(String mobileNumber, String otp) {
-        driver.get(URL);
+    public void login(String url,String mobileNumber, String otp) {
+        driver.get(url);
         loginPage.clickonLogin();
         loginPage.enterMobileNumber(mobileNumber);
         loginPage.getOtp();
@@ -34,7 +34,7 @@ public class LoginPageHelper {
 
         // Assertion 1: Verify current URL
         String currentUrl = driver.getCurrentUrl();
-        softAssert.assertEquals(currentUrl, URL, "Current URL is not as expected");
+        softAssert.assertEquals(currentUrl, url, "Current URL is not as expected");
 
         // Assertion 2: Verify page title
         String pageTitle = driver.getTitle();
@@ -45,7 +45,7 @@ public class LoginPageHelper {
     }
 
     public void logout() {
-
+// dummy testing
        loginPage.clickonProfile();
        loginPage.clickonLogoutButton();
 
