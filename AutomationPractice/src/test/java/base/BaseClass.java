@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import utilities.ConfigReader;
 import utilities.EmailUtil;
 import utilities.ExtentReporterNG;
 
@@ -20,6 +21,10 @@ public class BaseClass {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     private static ExtentReports extent;
+
+    ConfigReader configReader = ConfigReader.getInstance();
+    String email = configReader.getProperty("emailId");
+    String emailPassword = configReader.getProperty("emailPassword");
 
     @BeforeSuite
     public void setUpSuite() {
@@ -50,14 +55,14 @@ public class BaseClass {
         flushExtentReport();
 
         // Send email with Extent Report
-        String to = "abhi726yadav@gmail.com";
+        String to = email;
         String subject = "Extent Report";
         String body = "Dear Abhi,\n\nPlease find the attached Extent Report.\n\nBest regards,\nYour Automation Framework";
 
 
         String attachmentPath = System.getProperty("user.dir") + "/testReport/"+"ExtentReport_"+ ExtentReporterNG.fileNames+".html";
 
-        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath);
+        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath,email,emailPassword);
     }
 
     public static WebDriver getDriver() {

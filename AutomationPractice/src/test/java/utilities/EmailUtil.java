@@ -9,15 +9,9 @@ import java.util.Properties;
 
 public class EmailUtil {
 
-    ConfigReader configReader = ConfigReader.getInstance();
-    String email = configReader.getProperty("emailId");
-    String emailPassword = configReader.getProperty("emailPassword");
 
-    public static void sendEmailWithAttachment(String to, String subject, String body, String attachmentPath) {
-        // Sender's email ID and password
-        final String from = "abhi726yadav@gmail.com"; // change accordingly
-        final String password = "ytyt zvpf drqj ytyy"; // change accordingly
 
+    public static void sendEmailWithAttachment(String to, String subject, String body, String attachmentPath, String email, String emailPassword) {
         // Setup mail server
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -28,7 +22,7 @@ public class EmailUtil {
         // Get the Session object
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
+                return new PasswordAuthentication(email, emailPassword);
             }
         });
 
@@ -37,7 +31,7 @@ public class EmailUtil {
             Message message = new MimeMessage(session);
 
             // Set From: header field of the header
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(email));
 
             // Set To: header field of the header
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
@@ -76,4 +70,47 @@ public class EmailUtil {
             throw new RuntimeException(e);
         }
     }
+
+        public static void sendEmailWithReport(String to, String subject, String report, String email, String emailPassword) {
+            // Setup mail server
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+
+            // Get the Session object
+            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(email, emailPassword);
+                }
+            });
+
+            try {
+                // Create a default MimeMessage object
+                Message message = new MimeMessage(session);
+
+                // Set From: header field of the header
+                message.setFrom(new InternetAddress(email));
+
+                // Set To: header field of the header
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+                // Set Subject: header field
+                message.setSubject(subject);
+
+                // Now set the actual message
+                message.setText(report);
+
+                // Send message
+                Transport.send(message);
+
+                System.out.println("Sent message successfully....");
+
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+
+    }
+
 }
