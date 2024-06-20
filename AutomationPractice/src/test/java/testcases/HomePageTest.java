@@ -3,13 +3,15 @@ package testcases;
 import base.BaseClass;
 import com.aventstack.extentreports.ExtentTest;
 import helper.HomePageHelper;
-import helper.LoginPageHelper;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
+import utilities.ConfigReader;
 import utilities.Listeners;
 
 public class HomePageTest extends BaseClass {
 
+    private static final ConfigReader configReader = ConfigReader.getInstance();
+    private static final String prodUrl = configReader.getProperty("prodUrl");
 
     @Test
     public void testBrokenLinks() {
@@ -17,14 +19,15 @@ public class HomePageTest extends BaseClass {
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
 
         HomePageHelper homePageHelper = new HomePageHelper(driver, test);
-        homePageHelper.checkTheBrokenLinks("https://www.mobikwik.com/");
+        homePageHelper.checkTheBrokenLinks(prodUrl);
     }
+
     @Test
     public void testBrokenImages() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
 
         HomePageHelper homePageHelper = new HomePageHelper(driver, test);
-        homePageHelper.checkTheBrokenImages("https://www.mobikwik.com/");
+        homePageHelper.checkTheBrokenImages(prodUrl);
     }
 }

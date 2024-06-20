@@ -9,10 +9,14 @@ import java.util.Properties;
 
 public class EmailUtil {
 
+    ConfigReader configReader = ConfigReader.getInstance();
+    String email = configReader.getProperty("emailId");
+    String emailPassword = configReader.getProperty("emailPassword");
+
     public static void sendEmailWithAttachment(String to, String subject, String body, String attachmentPath) {
         // Sender's email ID and password
-        final String from = "abhi7268yadav@gmail.com"; // change accordingly
-        final String password = "Abhiayadav@12098765431"; // change accordingly
+        final String from = "abhi726yadav@gmail.com"; // change accordingly
+        final String password = "jkkj zvpf drqj wxwp"; // change accordingly
 
         // Setup mail server
         Properties props = new Properties();

@@ -10,7 +10,10 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import utilities.EmailUtil;
+import utilities.ExtentReporterNG;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class BaseClass {
@@ -46,13 +49,15 @@ public class BaseClass {
     public void tearDownSuite() {
         flushExtentReport();
 
-  /*      // Send email with Extent Report
+        // Send email with Extent Report
         String to = "abhi726yadav@gmail.com";
         String subject = "Extent Report";
         String body = "Dear Abhi,\n\nPlease find the attached Extent Report.\n\nBest regards,\nYour Automation Framework";
-        String attachmentPath = "extent.html";
 
-        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath);*/
+
+        String attachmentPath = System.getProperty("user.dir") + "/testReport/"+"ExtentReport_"+ ExtentReporterNG.fileNames+".html";
+
+        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath);
     }
 
     public static WebDriver getDriver() {
