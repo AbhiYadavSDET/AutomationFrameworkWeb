@@ -10,13 +10,13 @@ import com.aventstack.extentreports.reporter.configuration.ViewName;
 public class ExtentReporterNG {
 
     private static ExtentReports extent;
+    public static String fileNames = new SimpleDateFormat("YYYY_MM_dd_HH_mm").format(new Date());
 
     public static synchronized ExtentReports extentReportGenerator() {
         if (extent == null) {
-            // Generate a timestamped file name for the report
-            String timeStamp = new SimpleDateFormat("YYYY_MM_dd_HH_mm_ss").format(new Date());
 
-            String fileName = "ExtentReport_" + timeStamp + ".html";
+            String fileName = "ExtentReport_" + fileNames + ".html";
+          /*  String fileName = "abhishek"+".html";*/
 
             // Custom path for Extent report directory inside the project structure
             String reportDirectory = System.getProperty("user.dir") + "/testReport/";
