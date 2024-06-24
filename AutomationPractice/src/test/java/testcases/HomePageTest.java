@@ -14,7 +14,7 @@ public class HomePageTest extends BaseClass {
     private static final ConfigReader configReader = ConfigReader.getInstance();
     private static final String prodUrl = configReader.getProperty("prodUrl");
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Test()
     public void testBrokenLinks() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
@@ -23,7 +23,7 @@ public class HomePageTest extends BaseClass {
         homePageHelper.checkTheBrokenLinks(prodUrl);
     }
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Test()
     public void testBrokenImages() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass

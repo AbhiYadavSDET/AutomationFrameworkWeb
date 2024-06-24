@@ -19,7 +19,7 @@ public class LoginPageTest extends BaseClass {
     String otp = configReader.getProperty("otp");
 
 
-    @Test(enabled = true,retryAnalyzer = RetryAnalyzer.class)
+    @Test(enabled = true)
     public void loginTest() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
@@ -28,7 +28,7 @@ public class LoginPageTest extends BaseClass {
         loginHelper.login(prodUrl, noKycMobileNumber, otp);
     }
 
-    @Test(enabled = true,retryAnalyzer = RetryAnalyzer.class)
+    @Test(enabled = true)
     public void logoutTest() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
