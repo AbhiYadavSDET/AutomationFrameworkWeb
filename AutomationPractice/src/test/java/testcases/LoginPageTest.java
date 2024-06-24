@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.ExcelUtils;
 import utilities.Listeners;
+import utilities.RetryAnalyzer;
 
 public class LoginPageTest extends BaseClass {
     ConfigReader configReader = ConfigReader.getInstance();
@@ -18,7 +19,7 @@ public class LoginPageTest extends BaseClass {
     String otp = configReader.getProperty("otp");
 
 
-    @Test(enabled = true)
+    @Test(enabled = true,retryAnalyzer = RetryAnalyzer.class)
     public void loginTest() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
@@ -27,7 +28,7 @@ public class LoginPageTest extends BaseClass {
         loginHelper.login(prodUrl, noKycMobileNumber, otp);
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true,retryAnalyzer = RetryAnalyzer.class)
     public void logoutTest() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass

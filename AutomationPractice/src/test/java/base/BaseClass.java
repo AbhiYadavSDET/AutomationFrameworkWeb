@@ -54,7 +54,7 @@ public class BaseClass {
     public void tearDownSuite() {
         flushExtentReport();
 
-        // Send email with Extent Report
+      /*  // Send email with attachment Extent Report
         String to = email;
         String subject = "Extent Report";
         String body = "Dear Abhi,\n\nPlease find the attached Extent Report.\n\nBest regards,\nYour Automation Framework";
@@ -62,7 +62,19 @@ public class BaseClass {
 
         String attachmentPath = System.getProperty("user.dir") + "/testReport/"+"ExtentReport_"+ ExtentReporterNG.fileNames+".html";
 
-        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath,email,emailPassword);
+        EmailUtil.sendEmailWithAttachment(to, subject, body, attachmentPath,email,emailPassword);*/
+
+
+            // Send email content with Extent Report
+            String to = email;
+            String subject = "Extent Report";
+            String body = "Dear Abhi,\n\nPlease find the attached Extent Report.\n\nBest regards,\nYour Automation Framework";
+
+            String reportPath = System.getProperty("user.dir") + "/testReport/" + "ExtentReport_" + ExtentReporterNG.fileNames + ".html";
+
+            EmailUtil.sendEmailWithReport(to, subject, reportPath, email, emailPassword);
+
+
     }
 
     public static WebDriver getDriver() {

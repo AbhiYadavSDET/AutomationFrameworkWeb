@@ -7,13 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.Listeners;
+import utilities.RetryAnalyzer;
 
 public class HomePageTest extends BaseClass {
 
     private static final ConfigReader configReader = ConfigReader.getInstance();
     private static final String prodUrl = configReader.getProperty("prodUrl");
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testBrokenLinks() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
@@ -22,7 +23,7 @@ public class HomePageTest extends BaseClass {
         homePageHelper.checkTheBrokenLinks(prodUrl);
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testBrokenImages() {
         ExtentTest test = Listeners.getExtentTest();
         WebDriver driver = getDriver();  // Get the WebDriver instance from BaseClass
