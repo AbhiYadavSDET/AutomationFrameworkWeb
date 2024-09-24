@@ -1,0 +1,59 @@
+# Ignoring specific directories and files
+bin/
+test-output/
+LogFile.txt
+ResultFile.txt
+screenshots/
+.idea/
+adbLogs/
+testData/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+
+# Ignore the local classpath changes
+/.classpath
+
+# Compiled class files
+*.class
+*.iml
+*.log
+
+# Ignore local project files
+/.classpath
+/.project
+/.settings/
+
+# Target directory and related files
+target/
+target/*
+/target/*
+reports/*
+/TestData.xlsx
+/TestData_Web.xlsx
+src/UITestFramework/ExtentReport/old
+src/UITestFramework/ExtentReport/extent.html
+
+# User-specific files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.reports/
+.target/
+
+# Gradle/Maven specific files
+.idea/libraries
+*.class
+*.jar
+*.war
+*.ear
+**/target/
+**/.idea/
+*.iml
+.classc
+.project
+**/reports/
+**/logs
